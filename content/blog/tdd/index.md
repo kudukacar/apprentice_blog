@@ -1,6 +1,7 @@
 ---
 title: Test-Driven Development works!
 date: "2020-02-27T23:46:37.121Z"
+description: "A post describing the benefits of TDD"
 ---
 
 I previously thought of the Test-Driven Development (TDD) process as counterintuitive. After all, how could you write tests before writing code? The tests verify the behavior of your code, so naturally the code comes first. I didn’t have much experience writing tests, but in the past, I wrote entire applications or features before writing the first test. Sometimes, I had difficulty writing the tests, and redesigned the code to make it testable. Hence, the benefit of TDD.

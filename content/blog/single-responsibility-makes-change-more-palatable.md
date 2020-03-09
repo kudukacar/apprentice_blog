@@ -4,8 +4,6 @@ date: 2020-03-09T10:26:49.502Z
 title: Single responsibility makes change more palatable
 description: A blog about the Single Responsibility Principle
 ---
-
-
 I have a difficult time following the single responsibility principle (SRP), the “S” in [SOLID](https://en.wikipedia.org/wiki/SOLID) design. I think of classes as large objects, holding many methods, and doing many things. For example, on a recent project building a Tic-Tac-Toe game, I created a Validator class to validate user input. I thought of the Validator as a general validator, validating all types of user input. The class included methods to validate a user entered board position, and game play option. I also needed collaborators for the various methods, and included them in the initializer. If the need for another user input arises, I add another method and collaborators to the Validator. Soon, the class grows large, dependencies become less obvious, and any change requires dedicated effort. As Sandi Metz describes in “Practical Object-Oriented Design In Ruby”, change is unavoidable, and the need for change makes design matter.
 
 The Validator class with too many responsibilities:
@@ -36,8 +34,6 @@ class ParseInput
 end
 ```
 
-
-
 SRP also applies to methods. For example, suppose you have a ComputerPlayer selection method determining all available positions on the board, and then taking a sample of the available positions to make a selection. This method could be split into two methods, the selection method to make a selection from available positions, and the available_positions method to determine all available positions. 
 
 ComputerPlayer selection method before and after SRP refactoring:
@@ -56,7 +52,7 @@ class ComputerPlayer
   end
   
   def available_positions
-    available_positions = (1..9).to_a.filter { |position| board.is_available?(position) }
+    (1..9).to_a.filter { |position| board.is_available?(position) }
   end
 end
 ```
@@ -67,21 +63,15 @@ Methods with a single responsibility have the following benefits:
 * Less or no comments
 * Configurable classes where you can move methods in and out more easily
 
-
-
 A few tips on determining if a class has a single responsibility:
 
 * Ask each method in the class a question about its purpose, and see if the question makes sense. For example, with a Player class, and a selection method, ask, Please Mr. Player, what is your selection? This question makes sense. To the validation method, please Mr. Player, is your selection valid? This question makes less sense, indicating this method belongs elsewhere.
 * Try to describe the class in one sentence. If you use “and” or “or” then you may have more than one responsibility.
-
-
 
 A few constraints from Sandi Metz to keep your classes or methods small, and hopefully, single purposed:
 
 * Classes can be no longer than 100 lines of code
 * Methods can be no longer than five lines of code
 * Pass no more than four parameters into a method
-
-
 
 I started the Tic-Tac-Toe project building large, bulky classes, but by the end of the project, I had small classes, many with only one public facing method, easy to plug and play.

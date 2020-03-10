@@ -6,7 +6,7 @@ description: A blog about the Single Responsibility Principle
 ---
 I have a difficult time following the single responsibility principle (SRP), the “S” in [SOLID](https://en.wikipedia.org/wiki/SOLID) design. I think of classes as large objects, holding many methods, and doing many things. For example, on a recent project building a Tic-Tac-Toe game, I created a Validator class to validate user input. I thought of the Validator as a general validator, validating all types of user input. The class included methods to validate a user entered board position, and game play option. I also needed collaborators for the various methods, and included them in the initializer. If the need for another user input arises, I add another method and collaborators to the Validator. Soon, the class grows large, dependencies become less obvious, and any change requires dedicated effort. As Sandi Metz describes in “Practical Object-Oriented Design In Ruby”, change is unavoidable, and the need for change makes design matter.
 
-The Validator class with too many responsibilities:
+The Validator class with many responsibilities:
 
 ```ruby
 class Validator
@@ -20,7 +20,7 @@ class Validator
 end
 ```
 
-SRP states a class does the smallest possible useful thing, and everything in a class relates to its central purpose. SRP doesn’t require a class to do one very narrow thing, or change for only a single reason. Although simple in concept, the components of a class’ central purpose is subjective. Hidden responsibilities become more obvious as the application grows, and you duplicate responsibilities, and associated code in other classes. For example, in Tic-Tac-Toe, I used a parse_input method within the Player class to parse the user’s board selection. As the application grew, I garnered user input regarding game play options. Again, I needed a parse_input method. I realized this responsibility was hiding among other responsibilities when I duplicated the code. I separated the parse input method into a class of its own, and inserted this class as needed. As Sandi Metz states, easy to change applications consist of easy to reuse classes. Reusable classes are pluggable units of well-defined behavior with few entanglements. An easy to change application is like a box of building blocks. Select the pieces you need, and assemble them in unanticipated ways.
+SRP states a class does the smallest possible useful thing, and everything in a class relates to its central purpose. SRP doesn’t require a class to do one very narrow thing, or change for only a single reason. Instead, SRP requires a cohesive class.  Although simple in concept, the components of a class’ central purpose is subjective. Hidden responsibilities become more obvious as the application grows, and you duplicate responsibilities, and associated code in other classes. For example, in Tic-Tac-Toe, I used a parse_input method within the Player class to parse the user’s board selection. As the application grew, I garnered user input regarding game play options. Again, I needed a parse_input method. I realized this responsibility was hiding among other responsibilities when I duplicated the code. I separated the parse input method into a class of its own, and inserted this class as needed. As Sandi Metz states, easy to change applications consist of easy to reuse classes. Reusable classes are pluggable units of well-defined behavior with few entanglements. An easy to change application is like a box of building blocks. Select the pieces you need, and assemble them in unanticipated ways.
 
 The ParseInput class with no entanglements and well-defined behavior:
 
@@ -33,6 +33,44 @@ class ParseInput
   end
 end
 ```
+
+The Validator class separated into more well-defined validators:
+
+```ruby
+class OptionValidator
+  attr_accessor :options
+
+  ERROR_MESSAGES = {
+    invalid_entry: "Invalid entry.",
+  }
+
+  def initialize
+    @options = 1
+  end
+
+  def error(selection)
+    return ERROR_MESSAGES[:invalid_entry] unless selection.between?(1, options)
+  end
+end
+
+class PositionValidator
+  attr_reader :board
+
+  ERROR_MESSAGES = {
+    space_taken: "Selection taken and not available."
+  }
+
+  def initialize(board)
+    @board = board
+  end
+
+  def error(selection)
+    return ERROR_MESSAGES[:space_taken] unless board.is_available?(selection)
+  end
+end
+```
+
+
 
 SRP also applies to methods. For example, suppose you have a ComputerPlayer selection method determining all available positions on the board, and then taking a sample of the available positions to make a selection. This method could be split into two methods, the selection method to make a selection from available positions, and the available_positions method to determine all available positions. 
 

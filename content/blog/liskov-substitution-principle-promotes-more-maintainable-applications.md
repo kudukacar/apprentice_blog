@@ -8,7 +8,7 @@ I used to think of modules as a key part of composition. Include them in other o
 
 On the other hand, inheritance describes a defined relationship between objects. This hierarchical relationship between a subclass (i.e. the child) and a superclass (i.e. the parent) allows the classes to share code. For example, if a subclass receives a message it does not understand (i.e. a method call), it automatically delegates the message to the superclass (i.e. look for the method on the superclass). See a diagram of the generalized method lookup for a HumanPlayer class, a Player superclass, and associated modules.
 
-![](https://docs.google.com/drawings/u/0/d/sqkAetLGsDy8KiXtTvAcr2A/image?w=135&h=492&rev=1&ac=1&parent=1sTdbBxbiyCENHvzH71p0yt4NegvXKiQYUWGMz7P3GDo)
+![](assets/liskov-substitution-principle.jpg)
 
 This relationship adds complexity to an object. An object’s behaviors span across its methods, and those of its modules, superclass, and superclass’ modules. As a result, this object is no longer self-contained, and well-defined. Modules expand the set of messages to which an object responds, increasing complexity even more. As Sandi Metz describes, the total set of messages an object responds to includes:
 

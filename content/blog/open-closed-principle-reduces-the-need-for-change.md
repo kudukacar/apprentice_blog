@@ -25,7 +25,7 @@ class TicTacToe
   
   def play_game
     players.cycle do |player|
-      position = player.selection(board)
+      player.selection(board)
       break unless in_progress?
     end
   end
@@ -49,18 +49,16 @@ class TicTacToe
   
   def play_game
     players.cycle do |player|
-      if player.class === HumanPlayer
-        position = player.selection(board)
+      if player.class == HumanPlayer
+        player.selection(board)
       else
-        random_move(board)
+        player.random_move(board)
       end
       break unless in_progress?
     end
   end
 end
 ```
-
-
 
 Requirements change again, and the client wants an unbeatable computer player.  Again, I have to modify the conditional statement to account for this change.  
 
@@ -90,12 +88,11 @@ class TicTacToe
   
   def play_game
     players.cycle do |player|
-      position = player.selection(board)
+      player.selection(board)
       break unless in_progress?
     end
   end
 end
-
 ```
 
 OCP using polymorphism reduces the need for code changes, and unexpected behavior regarding these changes.  Interfaces in Java, and protocols in Elixir are mechanisms to implement polymorphism.  Stay tuned for another blog about protocols in Elixir.

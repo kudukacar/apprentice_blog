@@ -6,7 +6,7 @@ description: A blog about the Interface Segregation Principle
 ---
 I am building a Tic-Tac-Toe console game in Elixir.  I created a Board protocol consisting of functions associated with managing the Tic-Tac-Toe board.  I also created a Presenter module to display the board.  The Board protocol started with one function, get, used by the Presenter module.  As the application grew, I added other functions to the Board protocol.  Although the Presenter module implements only one Board Protocol function and this function did not change, I needed to update the PresenterTest module with each change to the Board protocol.  I hesitated changing the Board protocol because of all the changes needed in test modules implementing this protocol.  I also felt uncomfortable including unused functions in PresenterTest and other module tests. The code seemed less clear, redundant, and inflated. See code below.
 
-```erlang
+```ruby
 defprotocol Board do
   def get(board, position)
   def place_token(board, position, token)
@@ -57,7 +57,7 @@ end
 
 At the time, I didn’t know I was violating the Interface Segregation Principle, the “I” in [SOLID](https://en.wikipedia.org/wiki/SOLID), first described by Robert C. Martin (Uncle Bob). See his [article](https://drive.google.com/file/d/0BwhCYaYDn8EgOTViYjJhYzMtMzYxMC00MzFjLWJjMzYtOGJiMDc5N2JkYmJi/view). The gist of the principle states, “Clients should not be forced to depend upon interfaces that they do not use”. In the example with the Presenter, although the PresenterTest uses one Board protocol function, we must change the PresenterTest with changes to any function in the Board protocol.  For example, adding a function to Board protocol necessitates a change in the PresenterTest even though the Presenter does not use this function.  These unnecessary functions in the PresenterTest produce unexpected side-effects and coupling, clouding the Presenter’s behaviors, and reducing the applications flexibility and maintainability. To comply with ISP, I split the Board protocol into targeted protocols. Now, modules depend only on protocols they use. See updated code below.
 
-```erlang
+```ruby
 defprotocol BoardUpdate do
   def place_token(board, position, token)
 end

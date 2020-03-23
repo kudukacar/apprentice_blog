@@ -1,5 +1,5 @@
 ---
-path: DIP
+path: blog\DIP
 date: 2020-03-21T14:46:45.456Z
 title: Dependency Inversion Principle reduces coupling and improves maintainability
 description: A blog about the Dependency Inversion Principle

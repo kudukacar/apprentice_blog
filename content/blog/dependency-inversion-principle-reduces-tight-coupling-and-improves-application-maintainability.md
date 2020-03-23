@@ -1,9 +1,7 @@
 ---
 path: DIP
 date: 2020-03-21T14:46:45.456Z
-title: >-
-  Dependency Inversion Principle reduces tight coupling and improves application
-  maintainability
+title: Dependency Inversion Principle reduces coupling and improves maintainability
 description: A blog about the Dependency Inversion Principle
 ---
 Dependency inversion principle (DIP), the “D” in [SOLID](https://en.wikipedia.org/wiki/SOLID), states:
@@ -70,9 +68,7 @@ Rspec.describe TicTacToe do
 end
 ```
 
-  
-
-This result might not be ideal in all situations, because a class’ tests pass even though the application does not work. For example, suppose the HumanPlayer class changes the selection method name to move. The TicTacToe test still passes, because the FakeHumanPlayer role did not change accordingly. To resolve this issue, the roles, FakePlayer, and HumanPlayer, rely on an abstraction, Player. Player describes the public methods, which FakePlayer and HumanPlayer reference. Any changes to methods occur in Player, and force changes in FakePlayer and HumanPlayer. Now all roles, FakePlayer, HumanPlayer, and TicTacToe rely on abstractions, as required by DIP.  Elixir protocols implement this abstraction. See example code below.
+This result might not be ideal in all situations, because a class’ tests pass even though the application does not work. For example, suppose the HumanPlayer class changes the selection method name to move. The TicTacToe test still passes, because the FakePlayer role did not change accordingly. To resolve this issue, the roles, FakePlayer, and HumanPlayer, rely on an abstraction, Player. Player describes the public methods, which FakePlayer and HumanPlayer reference. Any changes to methods occur in Player, and force changes in FakePlayer and HumanPlayer. Now all roles, FakePlayer, HumanPlayer, and TicTacToe rely on abstractions, as required by DIP.  Elixir protocols implement this abstraction. See example code below.
 
 ```ruby
 defprotocol Player do

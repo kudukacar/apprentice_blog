@@ -38,7 +38,6 @@ defmodule factorial(number) do
 end
 ```
 
-\
 A call to factorial(5) results in the following stack.
 
 ![](https://docs.google.com/drawings/u/0/d/sZxo-FPtoeimo4vuSVLSY-w/image?w=120&h=248&rev=109&ac=1&parent=1Mek02cn627zsGkD3hQvrnJpKVkeV6IWZ1LozwDuSOvM)

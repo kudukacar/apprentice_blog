@@ -49,7 +49,7 @@ Elixir implements tail call optimization to minimize memory usage with recursion
 Consider the following example, where we convert factorial to a tail recursive function, tail_factorial.
 
 ```ruby
-defmodule tail_factorial(number, product) when number == 1 do
+defmodule tail_factorial(number, product = 1) when number == 1 do
  product
 end
  

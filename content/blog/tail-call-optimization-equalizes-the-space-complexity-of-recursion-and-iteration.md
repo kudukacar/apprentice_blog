@@ -11,7 +11,7 @@ I recently learned Elixir, a functional programming language. Due to immutabilit
 Most languages use a stack to keep track of function calls. Each function call gets a frame containing the function’s local data. Once the function finishes executing, the function is popped from the stack. Consider the following example.
 
 ```ruby
-defmodule to_integer(input) do
+def to_integer(input) do
  String.to_integer(input)
 end
 ```
@@ -29,11 +29,11 @@ Once String.to_integer finishes executing, the function pops off the stack. Afte
 Consider the following factorial recursive function.
 
 ```ruby
-defmodule factorial(number) when number == 1 do
+def factorial(number) when number == 1 do
  1 
 end
  
-defmodule factorial(number) do
+def factorial(number) do
  number * factorial(number - 1)
 end
 ```
@@ -49,11 +49,11 @@ Elixir implements tail call optimization to minimize memory usage with recursion
 Consider the following example, where we convert factorial to a tail recursive function, tail_factorial.
 
 ```ruby
-defmodule tail_factorial(number, product = 1) when number == 1 do
+def tail_factorial(number, product = 1) when number == 1 do
  product
 end
  
-defmodule tail_factorial(number, product = 1) do
+def tail_factorial(number, product = 1) do
  tail_factorial(number - 1, product * number)
 end
 ```

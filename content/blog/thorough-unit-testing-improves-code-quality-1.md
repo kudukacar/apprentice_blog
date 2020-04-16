@@ -26,10 +26,9 @@ public class Echoer {
        }
    }
 }
-
 ```
 
-The Echoer class depends on a String message and a Connection connection, which represents an interface. See below the Connection interface, and the class SocketConnection, implementing this interface. This application passes an instance of the SocketConnection class into the echo method.
+The Echoer class depends on a String message and a Connection connection, which represents an interface. See below the Connection interface, and the class SocketConnection, implementing this interface. This application passes an instance of the SocketConnection class to the echo method.
 
 ```java
 public interface Connection {

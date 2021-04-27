@@ -76,7 +76,6 @@ public class AgedBrieItem implements Updateable {
         this.quality = Math.min(50, this.quality + 1);
     }
 }
-
 ```
 
 This design reduces the chance of bugs and unpredictable side effects. The design principle “Encapsulate what varies” promotes flexible applications, and minimizes the impact of change.
